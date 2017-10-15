@@ -1,0 +1,43 @@
+
+<div *ngIf="author">
+    <h2><span jhiTranslate="ppmApp.author.detail.title">Author</span> {{author.id}}</h2>
+    <hr>
+    <jhi-alert-error></jhi-alert-error>
+    <dl class="row-md jh-entity-details">
+        <dt><span jhiTranslate="ppmApp.author.userName">User Name</span></dt>
+        <dd>
+            <span>{{author.userName}}</span>
+        </dd>
+        <dt><span jhiTranslate="ppmApp.author.firstName">First Name</span></dt>
+        <dd>
+            <span>{{author.firstName}}</span>
+        </dd>
+        <dt><span jhiTranslate="ppmApp.author.lastName">Last Name</span></dt>
+        <dd>
+            <span>{{author.lastName}}</span>
+        </dd>
+        <dt><span jhiTranslate="ppmApp.author.email">Email</span></dt>
+        <dd>
+            <span>{{author.email}}</span>
+        </dd>
+        <dt><span jhiTranslate="ppmApp.author.favorite">Favorite</span></dt>
+        <dd>
+            <span *ngFor="let favorite of author.favorites; let last = last">
+                <a [routerLink]="['/picture', favorite?.id ]">{{favorite.id}}</a>{{last ? '' : ', '}}
+            </span>
+        </dd>
+    </dl>
+
+    <button type="submit"
+            (click)="previousState()"
+            class="btn btn-info">
+        <span class="fa fa-arrow-left"></span>&nbsp;<span jhiTranslate="entity.action.back"> Back</span>
+    </button>
+
+    <button type="button"
+            [routerLink]="['/', { outlets: { popup: 'author/'+ author.id + '/edit'} }]"
+            replaceUrl="true"
+            class="btn btn-primary">
+        <span class="fa fa-pencil"></span>&nbsp;<span jhiTranslate="entity.action.edit"> Edit</span>
+    </button>
+</div>

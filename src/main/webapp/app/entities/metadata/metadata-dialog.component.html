@@ -1,0 +1,49 @@
+<form name="editForm" role="form" novalidate (ngSubmit)="save()" #editForm="ngForm">
+
+    <div class="modal-header">
+        <h4 class="modal-title" id="myMetadataLabel" jhiTranslate="ppmApp.metadata.home.createOrEditLabel">Create or edit a Metadata</h4>
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true"
+                (click)="clear()">&times;</button>
+    </div>
+    <div class="modal-body">
+        <jhi-alert-error></jhi-alert-error>
+        <div class="form-group" [hidden]="!metadata.id">
+            <label for="id" jhiTranslate="global.field.id">ID</label>
+            <input type="text" class="form-control" id="id" name="id"
+                   [(ngModel)]="metadata.id" readonly />
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="ppmApp.metadata.key" for="field_key">Key</label>
+            <input type="text" class="form-control" name="key" id="field_key"
+                [(ngModel)]="metadata.key"  />
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="ppmApp.metadata.value" for="field_value">Value</label>
+            <input type="text" class="form-control" name="value" id="field_value"
+                [(ngModel)]="metadata.value"  />
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="ppmApp.metadata.type" for="field_type">Type</label>
+            <select class="form-control" name="type" [(ngModel)]="metadata.type" id="field_type" >
+                <option value="TAG">{{'ppmApp.MetadataType.TAG' | translate}}</option>
+                <option value="EXIF">{{'ppmApp.MetadataType.EXIF' | translate}}</option>
+            </select>
+        </div>
+
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="ppmApp.metadata.picture" for="field_picture">Picture</label>
+            <select class="form-control" id="field_picture" name="picture" [(ngModel)]="metadata.pictureId" >
+                <option [ngValue]="null"></option>
+                <option [ngValue]="pictureOption.id" *ngFor="let pictureOption of pictures; trackBy: trackPictureById">{{pictureOption.id}}</option>
+            </select>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal" (click)="clear()">
+            <span class="fa fa-ban"></span>&nbsp;<span jhiTranslate="entity.action.cancel">Cancel</span>
+        </button>
+        <button type="submit" [disabled]="editForm.form.invalid || isSaving" class="btn btn-primary">
+            <span class="fa fa-save"></span>&nbsp;<span jhiTranslate="entity.action.save">Save</span>
+        </button>
+    </div>
+</form>

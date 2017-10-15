@@ -1,0 +1,102 @@
+<form name="editForm" role="form" novalidate (ngSubmit)="save()" #editForm="ngForm">
+
+    <div class="modal-header">
+        <h4 class="modal-title" id="myPictureLabel" jhiTranslate="ppmApp.picture.home.createOrEditLabel">Create or edit a Picture</h4>
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true"
+                (click)="clear()">&times;</button>
+    </div>
+    <div class="modal-body">
+        <jhi-alert-error></jhi-alert-error>
+        <div class="form-group" [hidden]="!picture.id">
+            <label for="id" jhiTranslate="global.field.id">ID</label>
+            <input type="text" class="form-control" id="id" name="id"
+                   [(ngModel)]="picture.id" readonly />
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="ppmApp.picture.name" for="field_name">Name</label>
+            <input type="text" class="form-control" name="name" id="field_name"
+                [(ngModel)]="picture.name"  />
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="ppmApp.picture.data" for="field_data">Data</label>
+            <div>
+                <img [src]="'data:' + picture.dataContentType + ';base64,' + picture.data" style="max-height: 100px;" *ngIf="picture.data" alt="picture image"/>
+                <div *ngIf="picture.data" class="form-text text-danger clearfix">
+                    <span class="pull-left">{{picture.dataContentType}}, {{byteSize(picture.data)}}</span>
+                    <button type="button" (click)="clearInputImage('data', 'dataContentType', 'fileImage')" class="btn btn-secondary btn-xs pull-right">
+                        <span class="fa fa-times"></span>
+                    </button>
+                </div>
+                <input type="file" id="file_data" (change)="setFileData($event, picture, 'data', true)" accept="image/*" jhiTranslate="entity.action.addimage"/>
+            </div>
+            <input type="hidden" class="form-control" name="data" id="field_data"
+                [(ngModel)]="picture.data"  />
+            <input type="hidden" class="form-control" name="dataContentType" id="field_dataContentType"
+                [(ngModel)]="picture.dataContentType" />
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="ppmApp.picture.type" for="field_type">Type</label>
+            <select class="form-control" name="type" [(ngModel)]="picture.type" id="field_type" >
+                <option value="JPG">{{'ppmApp.PictureType.JPG' | translate}}</option>
+                <option value="PNG">{{'ppmApp.PictureType.PNG' | translate}}</option>
+                <option value="RAW">{{'ppmApp.PictureType.RAW' | translate}}</option>
+            </select>
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="ppmApp.picture.visibility" for="field_visibility">Visibility</label>
+            <select class="form-control" name="visibility" [(ngModel)]="picture.visibility" id="field_visibility" >
+                <option value="PRIVATE">{{'ppmApp.Visibility.PRIVATE' | translate}}</option>
+                <option value="PUBLIC">{{'ppmApp.Visibility.PUBLIC' | translate}}</option>
+            </select>
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="ppmApp.picture.shootDate" for="field_shootDate">Shoot Date</label>
+            <div class="input-group">
+                <input id="field_shootDate" type="text" class="form-control" name="shootDate" ngbDatepicker  #shootDateDp="ngbDatepicker" [(ngModel)]="picture.shootDate"
+                />
+                <span class="input-group-btn">
+                    <button type="button" class="btn btn-secondary" (click)="shootDateDp.toggle()"><i class="fa fa-calendar"></i></button>
+                </span>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="ppmApp.picture.postDate" for="field_postDate">Post Date</label>
+            <div class="input-group">
+                <input id="field_postDate" type="text" class="form-control" name="postDate" ngbDatepicker  #postDateDp="ngbDatepicker" [(ngModel)]="picture.postDate"
+                />
+                <span class="input-group-btn">
+                    <button type="button" class="btn btn-secondary" (click)="postDateDp.toggle()"><i class="fa fa-calendar"></i></button>
+                </span>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="ppmApp.picture.raw" for="field_raw">Raw</label>
+            <select class="form-control" id="field_raw" name="raw" [(ngModel)]="picture.rawId">
+                <option [ngValue]="null"></option>
+                <option [ngValue]="pictureOption.id" *ngFor="let pictureOption of raws; trackBy: trackPictureById">{{pictureOption.id}}</option>
+            </select>
+        </div>
+        <div class="form-group">
+            <label jhiTranslate="ppmApp.picture.album" for="field_album">Album</label>
+            <select class="form-control" id="field_album" multiple name="album" [(ngModel)]="picture.albums">
+                <option [ngValue]="getSelected(picture.albums, albumOption)" *ngFor="let albumOption of albums; trackBy: trackAlbumById">{{albumOption.id}}</option>
+            </select>
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="ppmApp.picture.author" for="field_author">Author</label>
+            <select class="form-control" id="field_author" name="author" [(ngModel)]="picture.authorId" >
+                <option [ngValue]="null"></option>
+                <option [ngValue]="authorOption.id" *ngFor="let authorOption of authors; trackBy: trackAuthorById">{{authorOption.id}}</option>
+            </select>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal" (click)="clear()">
+            <span class="fa fa-ban"></span>&nbsp;<span jhiTranslate="entity.action.cancel">Cancel</span>
+        </button>
+        <button type="submit" [disabled]="editForm.form.invalid || isSaving" class="btn btn-primary">
+            <span class="fa fa-save"></span>&nbsp;<span jhiTranslate="entity.action.save">Save</span>
+        </button>
+    </div>
+</form>

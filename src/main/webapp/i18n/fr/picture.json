@@ -1,0 +1,33 @@
+{
+    "ppmApp": {
+        "picture" : {
+            "home": {
+                "title": "Pictures",
+                "createLabel": "Créer un nouveau Picture",
+                "createOrEditLabel": "Créer ou éditer un Picture",
+                "search": "Recherche pour Picture"
+            },
+            "created": "Un nouveau Picture a été créé avec l'identifiant {{ param }}",
+            "updated": "Le Picture avec l'identifiant {{ param }} a été mis à jour",
+            "deleted": "Le Picture avec l'identifiant {{ param }} a été supprimé",
+            "delete": {
+                "question": "Etes-vous certain de vouloir supprimer le Picture {{ id }} ?"
+            },
+            "detail": {
+                "title": "Picture"
+            },
+            "name": "Name",
+            "data": "Data",
+            "type": "Type",
+            "visibility": "Visibility",
+            "shootDate": "Shoot Date",
+            "postDate": "Post Date",
+            "raw": "Raw",
+            "comment": "Comment",
+            "metadata": "Metadata",
+            "album": "Album",
+            "author": "Author",
+            "liker": "Liker"
+        }
+    }
+}

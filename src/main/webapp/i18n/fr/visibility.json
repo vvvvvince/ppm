@@ -1,0 +1,9 @@
+{
+    "ppmApp": {
+        "Visibility" : {
+            "null": "",
+            "PRIVATE": "PRIVATE",
+            "PUBLIC": "PUBLIC"
+        }
+    }
+}

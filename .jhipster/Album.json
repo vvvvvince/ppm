@@ -1,0 +1,36 @@
+{
+    "fluentMethods": true,
+    "relationships": [
+        {
+            "relationshipType": "many-to-many",
+            "relationshipName": "picure",
+            "otherEntityName": "picture",
+            "ownerSide": false,
+            "otherEntityRelationshipName": "album"
+        }
+    ],
+    "fields": [
+        {
+            "fieldName": "name",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "description",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "creationDate",
+            "fieldType": "LocalDate"
+        },
+        {
+            "fieldName": "visibility",
+            "fieldType": "Visibility",
+            "fieldValues": "PRIVATE,PUBLIC"
+        }
+    ],
+    "changelogDate": "20171015122659",
+    "entityTableName": "album",
+    "dto": "mapstruct",
+    "pagination": "no",
+    "service": "serviceImpl"
+}

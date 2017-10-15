@@ -1,0 +1,25 @@
+{
+    "ppmApp": {
+        "metadata" : {
+            "home": {
+                "title": "Metadata",
+                "createLabel": "Créer un nouveau Metadata",
+                "createOrEditLabel": "Créer ou éditer un Metadata",
+                "search": "Recherche pour Metadata"
+            },
+            "created": "Un nouveau Metadata a été créé avec l'identifiant {{ param }}",
+            "updated": "Le Metadata avec l'identifiant {{ param }} a été mis à jour",
+            "deleted": "Le Metadata avec l'identifiant {{ param }} a été supprimé",
+            "delete": {
+                "question": "Etes-vous certain de vouloir supprimer le Metadata {{ id }} ?"
+            },
+            "detail": {
+                "title": "Metadata"
+            },
+            "key": "Key",
+            "value": "Value",
+            "type": "Type",
+            "picture": "Picture"
+        }
+    }
+}

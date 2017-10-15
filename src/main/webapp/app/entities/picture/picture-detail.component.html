@@ -1,0 +1,68 @@
+
+<div *ngIf="picture">
+    <h2><span jhiTranslate="ppmApp.picture.detail.title">Picture</span> {{picture.id}}</h2>
+    <hr>
+    <jhi-alert-error></jhi-alert-error>
+    <dl class="row-md jh-entity-details">
+        <dt><span jhiTranslate="ppmApp.picture.name">Name</span></dt>
+        <dd>
+            <span>{{picture.name}}</span>
+        </dd>
+        <dt><span jhiTranslate="ppmApp.picture.data">Data</span></dt>
+        <dd>
+            <div *ngIf="picture.data">
+                <a (click)="openFile(picture.dataContentType, picture.data)">
+                    <img [src]="'data:' + picture.dataContentType + ';base64,' + picture.data" style="max-width: 100%;" alt="picture image"/>
+                </a>
+                {{picture.dataContentType}}, {{byteSize(picture.data)}}
+            </div>
+        </dd>
+        <dt><span jhiTranslate="ppmApp.picture.type">Type</span></dt>
+        <dd>
+            <span jhiTranslate="{{'ppmApp.PictureType.' + picture.type}}">{{picture.type}}</span>
+        </dd>
+        <dt><span jhiTranslate="ppmApp.picture.visibility">Visibility</span></dt>
+        <dd>
+            <span jhiTranslate="{{'ppmApp.Visibility.' + picture.visibility}}">{{picture.visibility}}</span>
+        </dd>
+        <dt><span jhiTranslate="ppmApp.picture.shootDate">Shoot Date</span></dt>
+        <dd>
+            <span>{{picture.shootDate | date:'mediumDate'}}</span>
+        </dd>
+        <dt><span jhiTranslate="ppmApp.picture.postDate">Post Date</span></dt>
+        <dd>
+            <span>{{picture.postDate | date:'mediumDate'}}</span>
+        </dd>
+        <dt><span jhiTranslate="ppmApp.picture.raw">Raw</span></dt>
+        <dd>
+            <div *ngIf="picture.rawId">
+                <a [routerLink]="['/picture', picture.rawId]">{{picture.rawId}}</a>
+            </div>
+        </dd>
+        <dt><span jhiTranslate="ppmApp.picture.album">Album</span></dt>
+        <dd>
+            <span *ngFor="let album of picture.albums; let last = last">
+                <a [routerLink]="['/album', album?.id ]">{{album.id}}</a>{{last ? '' : ', '}}
+            </span>
+        </dd>
+        <dt><span jhiTranslate="ppmApp.picture.author">Author</span></dt>
+        <dd>
+            <div *ngIf="picture.authorId">
+                <a [routerLink]="['/author', picture.authorId]">{{picture.authorId}}</a>
+            </div>
+        </dd>
+    </dl>
+
+    <button type="submit"
+            (click)="previousState()"
+            class="btn btn-info">
+        <span class="fa fa-arrow-left"></span>&nbsp;<span jhiTranslate="entity.action.back"> Back</span>
+    </button>
+
+    <button type="button"
+            [routerLink]="['/', { outlets: { popup: 'picture/'+ picture.id + '/edit'} }]"
+            replaceUrl="true"
+            class="btn btn-primary">
+        <span class="fa fa-pencil"></span>&nbsp;<span jhiTranslate="entity.action.edit"> Edit</span>
+    </button>
+</div>

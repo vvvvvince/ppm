@@ -1,0 +1,80 @@
+{
+    "fluentMethods": true,
+    "relationships": [
+        {
+            "relationshipType": "one-to-one",
+            "relationshipName": "raw",
+            "otherEntityName": "picture",
+            "otherEntityField": "id",
+            "ownerSide": true,
+            "otherEntityRelationshipName": "picture"
+        },
+        {
+            "relationshipType": "one-to-many",
+            "relationshipName": "comment",
+            "otherEntityName": "comment",
+            "otherEntityRelationshipName": "picture"
+        },
+        {
+            "relationshipType": "one-to-many",
+            "relationshipName": "metadata",
+            "otherEntityName": "metadata",
+            "otherEntityRelationshipName": "picture"
+        },
+        {
+            "relationshipType": "many-to-many",
+            "otherEntityRelationshipName": "picure",
+            "relationshipName": "album",
+            "otherEntityName": "album",
+            "otherEntityField": "id",
+            "ownerSide": true
+        },
+        {
+            "relationshipType": "many-to-one",
+            "relationshipName": "author",
+            "otherEntityName": "author",
+            "otherEntityField": "id"
+        },
+        {
+            "relationshipType": "many-to-many",
+            "relationshipName": "liker",
+            "otherEntityName": "author",
+            "ownerSide": false,
+            "otherEntityRelationshipName": "favorite"
+        }
+    ],
+    "fields": [
+        {
+            "fieldName": "name",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "data",
+            "fieldType": "byte[]",
+            "fieldTypeBlobContent": "image"
+        },
+        {
+            "fieldName": "type",
+            "fieldType": "PictureType",
+            "fieldValues": "JPG,PNG,RAW"
+        },
+        {
+            "fieldName": "visibility",
+            "fieldType": "Visibility",
+            "fieldValues": "PRIVATE,PUBLIC"
+        },
+        {
+            "fieldName": "shootDate",
+            "fieldType": "LocalDate"
+        },
+        {
+            "fieldName": "postDate",
+            "fieldType": "LocalDate"
+        }
+    ],
+    "changelogDate": "20171015122218",
+    "entityTableName": "picture",
+    "dto": "mapstruct",
+    "pagination": "infinite-scroll",
+    "service": "serviceImpl"
+}

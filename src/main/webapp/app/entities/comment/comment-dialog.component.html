@@ -1,0 +1,61 @@
+<form name="editForm" role="form" novalidate (ngSubmit)="save()" #editForm="ngForm">
+
+    <div class="modal-header">
+        <h4 class="modal-title" id="myCommentLabel" jhiTranslate="ppmApp.comment.home.createOrEditLabel">Create or edit a Comment</h4>
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true"
+                (click)="clear()">&times;</button>
+    </div>
+    <div class="modal-body">
+        <jhi-alert-error></jhi-alert-error>
+        <div class="form-group" [hidden]="!comment.id">
+            <label for="id" jhiTranslate="global.field.id">ID</label>
+            <input type="text" class="form-control" id="id" name="id"
+                   [(ngModel)]="comment.id" readonly />
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="ppmApp.comment.content" for="field_content">Content</label>
+            <input type="text" class="form-control" name="content" id="field_content"
+                [(ngModel)]="comment.content"  />
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="ppmApp.comment.postDate" for="field_postDate">Post Date</label>
+            <div class="input-group">
+                <input id="field_postDate" type="text" class="form-control" name="postDate" ngbDatepicker  #postDateDp="ngbDatepicker" [(ngModel)]="comment.postDate"
+                />
+                <span class="input-group-btn">
+                    <button type="button" class="btn btn-secondary" (click)="postDateDp.toggle()"><i class="fa fa-calendar"></i></button>
+                </span>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="ppmApp.comment.visibility" for="field_visibility">Visibility</label>
+            <select class="form-control" name="visibility" [(ngModel)]="comment.visibility" id="field_visibility" >
+                <option value="PRIVATE">{{'ppmApp.Visibility.PRIVATE' | translate}}</option>
+                <option value="PUBLIC">{{'ppmApp.Visibility.PUBLIC' | translate}}</option>
+            </select>
+        </div>
+
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="ppmApp.comment.author" for="field_author">Author</label>
+            <select class="form-control" id="field_author" name="author" [(ngModel)]="comment.authorId" >
+                <option [ngValue]="null"></option>
+                <option [ngValue]="authorOption.id" *ngFor="let authorOption of authors; trackBy: trackAuthorById">{{authorOption.id}}</option>
+            </select>
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="ppmApp.comment.picture" for="field_picture">Picture</label>
+            <select class="form-control" id="field_picture" name="picture" [(ngModel)]="comment.pictureId" >
+                <option [ngValue]="null"></option>
+                <option [ngValue]="pictureOption.id" *ngFor="let pictureOption of pictures; trackBy: trackPictureById">{{pictureOption.id}}</option>
+            </select>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal" (click)="clear()">
+            <span class="fa fa-ban"></span>&nbsp;<span jhiTranslate="entity.action.cancel">Cancel</span>
+        </button>
+        <button type="submit" [disabled]="editForm.form.invalid || isSaving" class="btn btn-primary">
+            <span class="fa fa-save"></span>&nbsp;<span jhiTranslate="entity.action.save">Save</span>
+        </button>
+    </div>
+</form>

@@ -1,0 +1,37 @@
+
+<div *ngIf="album">
+    <h2><span jhiTranslate="ppmApp.album.detail.title">Album</span> {{album.id}}</h2>
+    <hr>
+    <jhi-alert-error></jhi-alert-error>
+    <dl class="row-md jh-entity-details">
+        <dt><span jhiTranslate="ppmApp.album.name">Name</span></dt>
+        <dd>
+            <span>{{album.name}}</span>
+        </dd>
+        <dt><span jhiTranslate="ppmApp.album.description">Description</span></dt>
+        <dd>
+            <span>{{album.description}}</span>
+        </dd>
+        <dt><span jhiTranslate="ppmApp.album.creationDate">Creation Date</span></dt>
+        <dd>
+            <span>{{album.creationDate | date:'mediumDate'}}</span>
+        </dd>
+        <dt><span jhiTranslate="ppmApp.album.visibility">Visibility</span></dt>
+        <dd>
+            <span jhiTranslate="{{'ppmApp.Visibility.' + album.visibility}}">{{album.visibility}}</span>
+        </dd>
+    </dl>
+
+    <button type="submit"
+            (click)="previousState()"
+            class="btn btn-info">
+        <span class="fa fa-arrow-left"></span>&nbsp;<span jhiTranslate="entity.action.back"> Back</span>
+    </button>
+
+    <button type="button"
+            [routerLink]="['/', { outlets: { popup: 'album/'+ album.id + '/edit'} }]"
+            replaceUrl="true"
+            class="btn btn-primary">
+        <span class="fa fa-pencil"></span>&nbsp;<span jhiTranslate="entity.action.edit"> Edit</span>
+    </button>
+</div>

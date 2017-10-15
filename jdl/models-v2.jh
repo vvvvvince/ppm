@@ -1,0 +1,61 @@
+enum PictureType {
+	JPG, PNG, RAW
+}
+
+enum Visibility {
+	PRIVATE, PUBLIC
+}
+
+enum MetadataType {
+	TAG, EXIF
+}
+
+entity Picture {
+	name String,
+    data ImageBlob,
+    type PictureType,
+    visibility Visibility,
+    shootDate LocalDate,
+    postDate LocalDate    
+}
+
+entity Metadata {
+	key String,
+    value String,
+    type MetadataType
+}
+
+entity Album {
+	name String,
+    description String,
+    creationDate LocalDate,
+    visibility Visibility
+}
+
+entity Comment {
+	content String,
+    postDate LocalDate,  
+    visibility Visibility
+}
+
+relationship OneToOne {
+	Picture{raw} to Picture
+}
+
+relationship OneToMany {
+	User{picture} to Picture{User},
+	User{comment} to Comment{User},
+	Picture{comment} to Comment{picture},
+	Picture{metadata} to Metadata{picture}
+}
+
+relationship ManyToMany {
+	User{favorite} to Picture{liker},
+	Picture{album} to Album{picure}
+}
+
+paginate Picture, Comment with infinite-scroll
+
+dto * with mapstruct
+
+service all with serviceImpl //except Employee, Job

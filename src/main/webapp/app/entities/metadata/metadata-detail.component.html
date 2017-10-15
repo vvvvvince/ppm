@@ -1,0 +1,39 @@
+
+<div *ngIf="metadata">
+    <h2><span jhiTranslate="ppmApp.metadata.detail.title">Metadata</span> {{metadata.id}}</h2>
+    <hr>
+    <jhi-alert-error></jhi-alert-error>
+    <dl class="row-md jh-entity-details">
+        <dt><span jhiTranslate="ppmApp.metadata.key">Key</span></dt>
+        <dd>
+            <span>{{metadata.key}}</span>
+        </dd>
+        <dt><span jhiTranslate="ppmApp.metadata.value">Value</span></dt>
+        <dd>
+            <span>{{metadata.value}}</span>
+        </dd>
+        <dt><span jhiTranslate="ppmApp.metadata.type">Type</span></dt>
+        <dd>
+            <span jhiTranslate="{{'ppmApp.MetadataType.' + metadata.type}}">{{metadata.type}}</span>
+        </dd>
+        <dt><span jhiTranslate="ppmApp.metadata.picture">Picture</span></dt>
+        <dd>
+            <div *ngIf="metadata.pictureId">
+                <a [routerLink]="['/picture', metadata.pictureId]">{{metadata.pictureId}}</a>
+            </div>
+        </dd>
+    </dl>
+
+    <button type="submit"
+            (click)="previousState()"
+            class="btn btn-info">
+        <span class="fa fa-arrow-left"></span>&nbsp;<span jhiTranslate="entity.action.back"> Back</span>
+    </button>
+
+    <button type="button"
+            [routerLink]="['/', { outlets: { popup: 'metadata/'+ metadata.id + '/edit'} }]"
+            replaceUrl="true"
+            class="btn btn-primary">
+        <span class="fa fa-pencil"></span>&nbsp;<span jhiTranslate="entity.action.edit"> Edit</span>
+    </button>
+</div>

@@ -1,0 +1,10 @@
+{
+    "ppmApp": {
+        "PictureType" : {
+            "null": "",
+            "JPG": "JPG",
+            "PNG": "PNG",
+            "RAW": "RAW"
+        }
+    }
+}
